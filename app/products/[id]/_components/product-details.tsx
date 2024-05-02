@@ -96,13 +96,9 @@ const ProductDetails = ({ product, complementaryProducts }: ProductDetailsProps)
                             <TimerIcon size={14}/>
                         </div>
 
-                        {Number(product.restaurant.deliveryFee) > 0 ? (
                             <p className="text-xs font-semibold">
-                                {formatCurrency(Number(product.restaurant.deliveryFee))}
+                                {product.restaurant.deliveryTimeMinutes} min
                             </p>
-                        ) : (
-                            <p className="text-xs font-semibold">Grátis</p>
-                        )}
                     </div>
                 </Card>
                 </div>
