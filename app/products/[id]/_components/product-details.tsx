@@ -36,7 +36,7 @@ const ProductDetails = ({ product, complementaryProducts }: ProductDetailsProps)
     })
 
     return ( 
-        <div className="py-5">
+        <div className="py-5 relative z-50 rounded-tl-3xl rounded-tr-3xl mt-[-1.5rem] bg-white">
                 <div className="flex items-center gap-[0.375rem] px-5">
                     <div className="relative h-6 w-6">
                         <Image src={product.restaurant.imageUrl} alt={product.restaurant.name} className="rounded-full object-cover" fill
