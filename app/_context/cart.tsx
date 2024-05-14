@@ -21,13 +21,19 @@ interface ICartContext {
     subTotalPrice: number;
     totalPrice: number;
     totalDiscounts: number;
-    addProductToCart: (product: Prisma.ProductGetPayload<{include: {
-        restaurant: {
-            select: {
-                deliveryFee: true;
-            }
-        }
-    }}>, quantity: number) => void;
+    addProductToCart: ({ product, quantity, emptyCart }: {
+        product: Prisma.ProductGetPayload<{
+            include: {
+                restaurant: {
+                    select: {
+                        deliveryFee: true;
+                    };
+                };
+            };
+        }>;
+        quantity: number;
+        emptyCart?: boolean;
+    }) => void;
     decreaseProductQuantity: (productId: string) => void;
     increaseProductQuantity: (productId: string) => void;
     removeProductFromCart: (productId: string) => void;
@@ -56,7 +62,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     const totalPrice = useMemo(() => {
         return products.reduce((acc, product) => {
             return acc + calculateProductTotalPrice(product) * product.quantity
-        }, 0)
+        }, 0) - Number(products?.[0]?.restaurant?.deliveryFee)
     }, [products]);
 
     const totalDiscounts = subTotalPrice - totalPrice;
@@ -96,13 +102,19 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return setProducts((prev) => prev.filter((product) => product.id !== productId))
     }
 
-    const addProductToCart = (product: Prisma.ProductGetPayload<{include: {
-        restaurant: {
-            select: {
-                deliveryFee: true;
+    const addProductToCart = (
+        {product, quantity, emptyCart}: {product: Prisma.ProductGetPayload<{include: {
+            restaurant: {
+                select: {
+                    deliveryFee: true;
+                }
             }
+        }}>, quantity: number, emptyCart?: boolean}
+    ) => {
+
+        if (emptyCart) {
+            setProducts([])
         }
-    }}>, quantity: number) => {
 
         const isProductAlreadyOnCart = products.some(cartProduct => cartProduct.id === product.id)
 
