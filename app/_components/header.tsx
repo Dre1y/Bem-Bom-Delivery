@@ -72,9 +72,11 @@ const Header = () => {
 
                             {data?.user && (
                                 <>
-                                    <Button variant="ghost" className="w-full space-x-3 justify-start text-sm font-normal rounded-full">
+                                    <Button variant="ghost" className="w-full space-x-3 justify-start text-sm font-normal rounded-full" asChild>
+                                    <Link href={'/my-orders'}>
                                     <ScrollTextIcon size={16}/>
                                     <span className="block">Meus pedidos</span>
+                                    </Link>
                                 </Button>
 
                                 <Button variant="ghost" className="w-full space-x-3 justify-start text-sm font-normal rounded-full">
