@@ -10,8 +10,16 @@ import { OrderStatus } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "./ui/alert-dialog";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-const Cart = () => {
+interface CartProps {
+    // eslint-disable-next-line no-unused-vars
+    setIsOpen: (isOpen: boolean) => void
+}
+
+const Cart = ({ setIsOpen }: CartProps) => {
+    const router = useRouter()
     const [isSubmitLoading, setIsSubmitLoading] = useState(false)
     const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false)
 
@@ -49,6 +57,16 @@ const Cart = () => {
             });
 
             clearCart()
+            setIsOpen(false)
+
+            toast("Pedido finalizado com sucesso!", {
+                description: "Acompanhe na tela de seus pedidos.",
+                action: {
+                    label: "Meus pedidos",
+                    onClick: () => router.push("/my-orders")
+                },
+              })
+
         } catch (error) {
             console.log(error)
         } finally {
