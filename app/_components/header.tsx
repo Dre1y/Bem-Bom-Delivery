@@ -18,9 +18,9 @@ const Header = () => {
     return (
 
         <div className="flex justify-between pt-6 px-5">
-            <div className="relative h-[30px] w-[100px]">
+            <div className="relative h-[35px] w-[120px]">
                 <Link href="/">
-                <Image src="/logo.png" alt="Bem Bom Delivery" fill className="object-cover"/>
+                <Image src="/logo.png" alt="Bem Bom Delivery" fill className="object-cover rounded-sm"/>
                 </Link>
             </div>
             
