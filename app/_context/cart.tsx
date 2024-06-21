@@ -119,13 +119,19 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
 
     const addProductToCart = (
-        {product, quantity, emptyCart}: {product: Prisma.ProductGetPayload<{include: {
-            restaurant: {
-                select: {
-                    deliveryFee: true;
+        {product, quantity, emptyCart}: {
+            product: Prisma.ProductGetPayload<{include: {
+                restaurant: {
+                    select: {
+                        id: true;
+                        deliveryFee: true;
+                        deliveryTimeMinutes: true;
+                    }
                 }
-            }
-        }}>, quantity: number, emptyCart?: boolean}
+            }}>;
+            quantity: number;
+            emptyCart?: boolean;
+        }
     ) => {
 
         if (emptyCart) {
