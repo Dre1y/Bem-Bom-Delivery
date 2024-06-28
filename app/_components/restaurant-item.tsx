@@ -9,21 +9,22 @@ import Link from "next/link";
 import { cn } from "../_lib/utils";
 import { toggleFavoriteRestaurant } from "../_actions/restaurant";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
 
 interface RestaurantItemProps {
-    userId?: string;
     restaurant: Restaurant;
     className?: string;
     userFavoritesRestaurants: UserFavoriteRestaurant[]
 }
 
-const RestaurantItem = ({ restaurant, className, userId, userFavoritesRestaurants }: RestaurantItemProps) => {
+const RestaurantItem = ({ restaurant, className, userFavoritesRestaurants }: RestaurantItemProps) => {
+    const {data} = useSession()
     const isFavorite = userFavoritesRestaurants.some((favorite) => favorite.restaurantId === restaurant.id)
 
     const handleFavoriteClick = async () => {
-        if (!userId) return;
+        if (!data?.user.id) return;
         try {
-            await toggleFavoriteRestaurant(userId, restaurant.id)
+            await toggleFavoriteRestaurant(data?.user.id, restaurant.id)
             toast.success(isFavorite ? "Restaurante removido dos favoritos." : "Restaurante adicionado aos favoritos.")
 
         } catch (error) {
@@ -45,7 +46,7 @@ const RestaurantItem = ({ restaurant, className, userId, userFavoritesRestaurant
                 <span className="font-semibold text-xs">5.0</span>
             </div>
 
-            {userId && (
+            {data?.user.id && (
                 <Button size="icon" className={`absolute top-2 right-2 bg-gray-700 rounded-full h-7 w-7 ${isFavorite && "bg-primary hover:bg-gray-700"}`} onClick={handleFavoriteClick}>
                     <HeartIcon size={16} className="fill-white"/>
                 </Button>
