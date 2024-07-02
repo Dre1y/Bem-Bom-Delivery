@@ -24,7 +24,7 @@ const RecommendedRestaurants = async () => {
             <h2 className="mb-6 font-semibold text-ls">Restaurantes Recomendados</h2>
             <div className="flex flex-col w-full space-y-4 gap-6">
             {restaurants.map((restaurant) => (
-                <RestaurantItem key={restaurant.id} restaurant={restaurant} className="min-w-full max-w-full" userFavoritesRestaurants={userFavoriteRestaurants}/>
+                <RestaurantItem key={restaurant.id} restaurant={JSON.parse(JSON.stringify(restaurant))} className="min-w-full max-w-full" userFavoritesRestaurants={userFavoriteRestaurants}/>
             ))}
         </div>
         </div>

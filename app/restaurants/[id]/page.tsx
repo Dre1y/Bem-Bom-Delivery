@@ -66,7 +66,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
 
     return ( 
         <div>
-            <RestaurantImage restaurant={restaurant} userFavoriteRestaurants={userFavoriteRestaurants}/>
+            <RestaurantImage restaurant={JSON.parse(JSON.stringify(restaurant))} userFavoriteRestaurants={userFavoriteRestaurants}/>
 
             <div className="flex justify-between items-center px-5 pt-5 relative z-50 rounded-tl-3xl rounded-tr-3xl mt-[-1.5rem] bg-white">
                 <div className="flex items-center gap-[0.375rem]">
@@ -109,7 +109,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
             </div>
             ))}
 
-            <CartBanner restaurant={restaurant}/>
+            <CartBanner restaurant={JSON.parse(JSON.stringify(restaurant))}/>
         </div>
      );
 }

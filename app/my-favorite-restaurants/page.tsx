@@ -30,7 +30,7 @@ const MyFavoriteRestaurants = async () => {
             <h2 className="mb-6 font-semibold text-ls">Restaurantes Favoritos</h2>
             <div className="flex flex-col w-full space-y-4 gap-6">
             {userFavoriteRestaurants.length > 0 ? userFavoriteRestaurants.map(({restaurant}) => (
-                <RestaurantItem key={restaurant.id} restaurant={restaurant} className="min-w-full max-w-full" userFavoritesRestaurants={userFavoriteRestaurants}/>
+                <RestaurantItem key={restaurant.id} restaurant={JSON.parse(JSON.stringify(restaurant))} className="min-w-full max-w-full" userFavoritesRestaurants={userFavoriteRestaurants}/>
             )) : <h3 className="font-medium">Nenhum restaurante favoritado.</h3>}
         </div>
         </div>

@@ -15,7 +15,7 @@ const RestaurantList = async () => {
     return ( 
         <div className="flex overflow-x-scroll [&::-webkit-scrollbar]:hidden gap-4 px-5">
             {restaurants.map((restaurant) => (
-                <RestaurantItem key={restaurant.id} restaurant={restaurant} userId={session?.user?.id} userFavoritesRestaurants={userFavoritesRestaurants} />
+                <RestaurantItem key={restaurant.id} restaurant={JSON.parse(JSON.stringify(restaurant))} userFavoritesRestaurants={userFavoritesRestaurants} />
 
             ))}
         </div>
